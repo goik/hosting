@@ -1,0 +1,946 @@
+$hover:#1f95ef;
+$topHeaderLink:( "normal":#a8a8a8, "hover":$hover);
+$bottomHeaderLink:( "normal":#1c1c1c, "hover":$hover);
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-icab-box-sizing: border-box;
+	-khtml-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-o-box-sizing: border-box
+}
+
+scrollbar {
+	width: 6px;
+	height: 6px
+}
+
+scrollbar-track {
+	background-color: transparent;
+	border-left: 1px solid transparent
+}
+
+scrollbar-thumb {
+	background-color: $hover;
+	border-radius: 0px
+}
+
+scrollbar-thumb:hover {
+	background-color: transparent
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px
+}
+
+::-webkit-scrollbar-track {
+	background-color: transparent;
+	border-left: 1px solid transparent
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: $hover;
+	border-radius: 0px
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: $hover
+}
+
+//====== MIXINS =======//
+@mixin hHack($height) {
+	min-height: $height;
+	height: auto!important;
+	height: $height;
+}
+
+@mixin transition($dur, $ease) {
+	transition: all $dur $ease;
+	-webkit-transition: all $dur $ease;
+	-khtml-transition: all $dur $ease;
+	-moz-transition: all $dur $ease;
+	-o-transition: all $dur $ease;
+	-ms-transition: all $dur $ease;
+	-icab-transition: all $dur $ease;
+}
+
+@mixin borderRadius($corner) {
+	border-radius: $corner;
+	-o-border-radius: $corner;
+	-icab-border-radius: $corner;
+	-khtml-border-radius: $corner;
+	-moz-border-radius: $corner;
+	-webkit-border-radius: $corner;
+	-ms-border-radius: $corner;
+	-goog-ms-border-radius: $corner
+}
+
+@mixin opacity($alpha) {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$alpha*100+")";
+	filter: alpha(opacity=$alpha*100);
+	-moz-opacity: $alpha;
+	-khtml-opacity: $alpha;
+	opacity: $alpha
+}
+
+@mixin backgroundSize($w, $h) {
+	-webkit-background-size: $w $h;
+	-moz-background-size: $w $h;
+	-o-background-size: $w $h;
+	-khtml-background-size: $w $h;
+	-ms-background-size: $w $h;
+	-icab-background-size: $w $h;
+	background-size: $w $h
+}
+
+@mixin scale($rank) {
+	-moz-transform: scale($rank);
+	-o-transform: scale($rank);
+	-webkit-transform: scale($rank);
+	transform: scale($rank);
+	-ms-transform: scale($rank);
+	-khtml-transform: scale($rank);
+	-icab-transform: scale($rank)
+}
+
+//====== MIXINS =======//
+//~~~~~~~~~ EXTEND ~~~~~~~~~//
+%transition {
+	transition: all 0.3s, ease-in-out;
+	-webkit-transition: all 0.3s, ease-in-out;
+	-khtml-transition: all 0.3s, ease-in-out;
+	-moz-transition: all 0.3s, ease-in-out;
+	-o-transition: all 0.3s, ease-in-out;
+	-ms-transition: all 0.3s, ease-in-out;
+	-icab-transition: all 0.3s, ease-in-out;
+}
+
+%bold {
+	font-family: ProximaNova-Bold, sans-serif
+}
+
+%regular {
+	font-family: ProximaNova-Regular, sans-serif
+}
+
+%semibold {
+	font-family: ProximaNova-Semibold, sans-serif
+}
+
+%listReset {
+	list-style: none;
+	font-size: 0;
+	margin: 0;
+	padding: 0
+}
+
+%ac {
+	clear: both;
+	content: "";
+	display: block;
+	font-size: 0;
+	text-decoration: none;
+	text-indent: -999999px;
+	visibility: hidden;
+	text-align: left;
+	border: 0;
+	width: 100%;
+}
+
+%gWidth {
+	max-width: 1330px;
+	min-width: 900px;
+	margin: 0 auto;
+	@include hHack(10px);
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+}
+
+%headerTopHeight {
+	@include hHack(60px)
+}
+
+%headerBottomHeight {
+	@include hHack(50px)
+}
+
+%relat {
+	position: relative;
+	top: 0;
+	left: 0
+}
+
+%unlockElementStyle {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-icab-appearance: none;
+	-khtml-appearance: none;
+	-ms-appearance: none;
+	-o-appearance: none
+}
+
+%hover_current_main {
+	border-bottom: solid #1f95ef 2px;
+	color: map-get($topHeaderLink, "hover");
+}
+
+%hover_current {
+	border-bottom: solid #1f95ef 2px;
+	color: map-get($bottomHeaderLink, "hover");
+}
+
+//~~~~~~~~~/ EXTEND ~~~~~~~~~//
+.main-carcass {
+	width: 100%;
+	@include hHack(100%);
+	@extend %relat;
+}
+
+.main-header {
+	//@include opacity(0.5);
+	@include hHack(110px);
+	border-bottom: solid #dadada 1px;
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+	&-pad {
+		clear: both;
+		padding: 0 40px;
+		&:after {
+			@extend %ac
+		}
+	}
+	//@include opacity(0.5);
+	&-top {
+		@extend %headerTopHeight;
+		background: #1c1c1c;
+		clear: both;
+		&:after {
+			@extend %ac
+		}
+		&-fix {
+			@extend %gWidth
+		}
+	}
+	&-bottom {
+		@extend %headerBottomHeight;
+		background: #fff;
+		clear: both;
+		&:after {
+			@extend %ac
+		}
+		&-fix {
+			@extend %gWidth;
+			&-left {
+				@include hHack(50px);
+				width: 50%;
+				float: left;
+				&-pad {
+					clear: both;
+					&:after {
+						@extend %ac;
+					}
+				}
+			}
+			&-right {
+				@include hHack(50px);
+				width: 50%;
+				float: right;
+				&-pad {
+					clear: both;
+					&:after {
+						@extend %ac;
+					}
+				}
+			}
+		}
+	}
+}
+
+.logoCell {
+	@extend %headerTopHeight;
+	float: left;
+	&Pad {
+		clear: both;
+		padding-top: 20px;
+		font-size: 22px;
+		@extend %bold;
+		color: #fff;
+		letter-spacing: 1px;
+	}
+}
+
+.searchCell {
+	@extend %headerTopHeight;
+	float: right;
+	&Pad {
+		clear: both;
+		&:after {
+			@extend %ac
+		}
+		padding-right:10px;
+		padding-top:18px
+	}
+}
+
+.loginBtnCell {
+	@extend %headerTopHeight;
+	float: right;
+	&Pad {
+		padding-top: 20px;
+		clear: both;
+		&:after {
+			@extend %ac
+		}
+	}
+}
+
+.trafaret {
+	width: 100%;
+	/*background-image: url(../img/trafaret1.jpg);*/
+	background-repeat: no-repeat;
+	background-position: center top;
+	@extend %relat;
+	@include hHack(100px);
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+}
+
+.menuCell {
+	@extend %headerTopHeight;
+	float: left;
+	padding-left: 25px;
+	@media screen and (-webkit-min-device-pixel-ratio: 0) {
+		padding-left: 23px
+	}
+	;
+	&Pad {
+		clear: both;
+		&:after {
+			@extend %ac
+		}
+	}
+}
+
+.mainMenu {
+	clear: both;
+	&:after {
+		@extend %ac;
+	}
+	;
+	@extend %listReset;
+	&Item {
+		@extend %listReset;
+		float: left;
+		padding: 0 8px;
+		&.current a {
+			@extend %hover_current_main;
+		}
+		&Link {
+			padding-top: 23px;
+			padding-bottom: 21px;
+			display: block;
+			font-size: 14px;
+			text-decoration: none;
+			@extend %bold;
+			color: map-get($topHeaderLink, "normal");
+			@extend %transition;
+			letter-spacing: 0.5x;
+			word-spacing: 3px;
+			text-transform: uppercase;
+			border-bottom: solid transparent 2px;
+			// for chrome
+			@media screen and (-webkit-min-device-pixel-ratio: 0) {
+				letter-spacing: 0x;
+				word-spacing: 2px
+			}
+		}
+		&Link:hover {
+			@extend %hover_current_main;
+		}
+	}
+}
+
+.profileBtnList {
+	@extend %listReset;
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+	&Item {
+		@extend %listReset;
+		float: left;
+		padding: 3px 0 2px 17px;
+		&Link {
+			font-size: 14px;
+			text-decoration: none;
+			@extend %bold;
+			color: map-get($topHeaderLink, "normal");
+			@extend %transition;
+			letter-spacing: 0.5x;
+			word-spacing: 3px;
+			text-transform: uppercase;
+			// for chrome
+			@media screen and (-webkit-min-device-pixel-ratio: 0) {
+				letter-spacing: 0x;
+				word-spacing: 2px
+			}
+		}
+		&Link:hover {
+			color: map-get($topHeaderLink, "hover");
+		}
+	}
+}
+
+.searchBg {
+	display: block;
+	width: 250px;
+	height: 21px;
+	@extend %relat;
+	&Pad {
+		display: block;
+		padding-left: 31px
+	}
+}
+
+select,
+option,
+input,
+button,
+textarea {
+	@extend %unlockElementStyle;
+}
+
+.searchBtn {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 22px;
+	height: 23px;
+	z-index: 1;
+	cursor: pointer
+}
+
+.icon-search {
+	fill: #989898;
+	position: absolute;
+	left: 1px;
+	top: 2px
+}
+
+.main-search {
+	display: block;
+	background: transparent;
+	width: 100%;
+	height: 25px;
+	color: #727272;
+	@extend %regular;
+	letter-spacing: 0px;
+	font-size: 15px;
+	@extend %transition;
+}
+
+.main-search:focus::-moz-placeholder {
+	color: #444
+}
+
+.main-search:focus:-ms-input-placeholder {
+	color: #444
+}
+
+.main-search:focus::-webkit-input-placeholder {
+	color: #444
+}
+
+.main-search:focus:-moz-placeholder {
+	color: #444
+}
+
+.news-cat-nav {
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+}
+
+.news-cat-list {
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+}
+
+.news-cat-list,
+.news-cat-item {
+	@extend %listReset;
+}
+
+.news-cat-item {
+	float: left;
+	padding-right: 15px;
+	&.current a {
+		@extend %hover_current;
+	}
+	&-link {
+		color: map-get($bottomHeaderLink, "normal");
+		@extend %transition;
+		text-decoration: none;
+		font-size: 14px;
+		@extend %semibold;
+		letter-spacing: 0.7px;
+		padding: 17px 0 18px 0;
+		display: block;
+		border-bottom: solid transparent 2px;
+		&:hover {
+			@extend %hover_current;
+		}
+		@media screen and (-webkit-min-device-pixel-ratio: 0) {}
+	}
+}
+
+.add-link-list {
+	@extend %listReset;
+	float: right;
+	&-item {
+		@extend %listReset;
+		float: left;
+		padding: 0 31px;
+		@extend %relat;
+		padding-top: 18px;
+		&-link {
+			display: block;
+			text-decoration: none;
+			color: #1c1c1c;
+			font-size: 15px;
+			@extend %semibold;
+			@extend %transition;
+			&:hover {
+				color: $hover
+			}
+		}
+		&:last-child {
+			padding-right: 0
+		}
+	}
+}
+
+.mail-icon {
+	display: block;
+	top: 12px;
+	left: 0px;
+	&,
+	& svg {
+		@extend %transition;
+		width: 25px;
+		height: 26px;
+		fill: #1f94ee
+	}
+}
+
+.mag-icon {
+	display: block;
+	top: 14px;
+	left: 2px;
+	&,
+	& svg {
+		@extend %transition;
+		width: 22px;
+		height: 23px;
+		fill: #1f94ee
+	}
+}
+
+.icon-svg-place {
+	position: absolute
+}
+
+.light-bg {
+	background-color: #e5e7e9
+}
+
+.main-footer {
+	display: block;
+	width: 100%;
+	margin-top: -90px;
+	background: #1c1c1c;
+	@extend %relat;
+	&:after {
+		@extend %ac;
+	}
+}
+
+.main-footer-bottom-spacer {
+	display: block;
+	width: 100%;
+	@include hHack(90px);
+	&:after {
+		@extend %ac;
+	}
+}
+
+.main-content-out-pad {
+	@extend %relat;
+	&:after {
+		@extend %ac;
+	}
+}
+
+.slider-cell {
+	display: block;
+	width: 521px;
+	height: 270px;
+	border: solid #fff 1px
+}
+
+.main-content {
+	@extend %relat;
+	&:after {
+		@extend %ac;
+	}
+}
+
+.main-footer-fix-left,
+.main-footer-fix-right,
+.main-footer,
+.main-footer-fix {
+	@include hHack(90px);
+}
+
+.inner-carcass,
+.main-content,
+.main-slider-fix,
+.main-footer-fix {
+	max-width: 1440px;
+	min-width: 300px;
+	margin: 0 auto
+}
+
+.main-footer-fix-left,
+.main-footer-fix-right {
+	float: left
+}
+
+.main-footer-fix-left {
+	width: 50%;
+	text-align: left
+}
+
+.main-footer-fix-right {
+	width: 50%;
+	text-align: right
+}
+
+.main-footer-fix-left-pad,
+.main-footer-fix-right-pad {
+	padding-top: 38px;
+	clear: both;
+	&:after {
+		@extend %ac
+	}
+}
+
+.main-footer-fix-left-pad {
+	padding-left: 55px
+}
+
+.main-footer-fix-right-pad {
+	padding-right: 54px
+}
+
+.copy-txt {
+	display: block;
+	color: #727272;
+	font-size: 13px;
+	@extend %regular
+}
+
+.copy-txt a {
+	color: #1f95ef;
+	text-decoration: none;
+	@extend %transition
+}
+
+.copy-txt a:hover {
+	color: #fff
+}
+
+.main-footer-fix-right-link-group a {
+	color: #1f95ef;
+	text-decoration: none;
+	font-size: 14px;
+	@extend %regular;
+	letter-spacing: -0.4px;
+	margin-left: 10px;
+	@extend %transition;
+}
+
+.main-footer-fix-right-link-group a:hover {
+	color: #fff;
+}
+
+.main-slider {
+	width: 100%
+}
+
+.main-slider-fix {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: block;
+	clear: both;
+}
+
+.main-slider,
+.main-slider-fix {
+	@include hHack(360px);
+}
+
+.resize-img {
+	display: block;
+	width: 100%;
+	height: auto!important
+}
+
+.resize-img {
+	width: 100%;
+	@include hHack(360px);
+}
+
+%cover {
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	-khtml-background-size: cover;
+	-ms-background-size: cover;
+	-icab-background-size: cover
+}
+
+.bg-1 {
+	background-image: url(../img/1.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	@extend %cover;
+}
+
+.main-slider-fix-item {
+	@include hHack(360px);
+}
+
+.next-arr,
+.prev-arr {
+	background-color: rgba(0, 0, 0, 0.502);
+	position: absolute;
+	width: 39px;
+	height: 62px;
+	display: block;
+}
+
+.next-arr {
+	@include borderRadius(5px 0 0 5px);
+}
+
+.prev-arr {
+	@include borderRadius(0 5px 5px 0);
+}
+
+.prev-arr {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -31px
+}
+
+.prev-arr,
+.next-arr {
+	position: absolute;
+	top: 50%;
+	margin-top: -31px;
+	&:hover {
+		background-color: rgba(0, 0, 0, 1);
+	}
+}
+
+.prev-arr {
+	left: 0
+}
+
+.next-arr {
+	right: 0
+}
+
+.prev-arr-icon,
+.prev-arr-icon-svg,
+.next-arr-icon,
+.next-arr-icon-svg {
+	display: block;
+	width: 12px;
+	height: 22px
+}
+
+.prev-arr-icon-svg,
+.next-arr-icon-svg {
+	fill: #fff
+}
+
+.prev-arr-icon {
+	position: absolute;
+	left: 0;
+	top: 0
+}
+
+.prev-arr-icon {
+	left: 9px;
+	position: absolute;
+	top: 18px;
+}
+
+.next-arr-icon {
+	right: 9px;
+	position: absolute;
+	top: 18px;
+}
+
+.prev-arr,
+.prev-arr-icon,
+.prev-arr-icon-svg,
+.next-arr,
+.next-arr-icon,
+.next-arr-icon-svg {
+	@extend %transition;
+}
+
+.inner-carcass {
+	clear: both;
+	&:after {
+		@extend %ac;
+	}
+}
+
+.home-page,
+.mh {
+	@include hHack(100px);
+}
+
+.home-cell-3,
+.home-cell-1 {
+	width: 228px;
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+
+
+
+.home-cell-1 {
+	margin-left:-100%
+}
+
+
+.home-cell-3{
+	margin-right:-100%;
+	left: -228px;
+}
+
+.home-cell-2 {
+	width: 100%;
+	float: left;
+	position: relative;
+	top: 0;
+	left: 0;
+	margin-left: 0
+}
+
+.home-cell-2-pad {
+	clear: both;
+	padding-left: 228px;
+	padding-right: 228px;
+	&:after {
+		@extend %ac
+	}
+}
+
+.home-cell-1-pad,
+.home-cell-3-pad {
+	clear: both;
+	&:after {
+		@extend %ac;
+	}
+}
+
+.home-cell-1-pad {
+	padding: 0 7px 0 14px
+}
+
+.home-cell-3-pad {
+	padding: 0 14px 0 7px
+}
+
+.ad-resize {
+	display: block;
+	width: 100%;
+	height: auto!important
+}
+
+.ad-border {
+	border: solid #fff 1px;
+	@include borderRadius(4px);
+}
+
+.ad-spacer,
+.header-spacer {
+	display: block;
+	width: 100%;
+	clear: both;
+	@include hHack(14px);
+}
+
+.ad-link {
+	display: block;
+	text-decoration: none;
+	color: #fff;
+	clear: both;
+}
+
+.header-spacer,
+.main-content-out-pad,
+.home-cell-2-pad,
+.main-content,
+.inner-carcass,
+.home-page {
+	&:after {
+		@extend %ac;
+	}
+}
+
+.home-cell-3 {
+	background: green
+}
+
+.home-cell-1 {
+	background: black
+}
+
+.home-cell-2 {
+	background: orange
+}
+
+.home-cell-3,
+.home-cell-1,
+.home-cell-2 {
+	@include hHack(100px); 
+}
+
