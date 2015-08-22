@@ -195,7 +195,7 @@ scrollbar-thumb:hover {
     color: #000;
   }
 }
-/* line 10, ../sass/style.scss */
+/* line 17, ../sass/style.scss */
 .indent {
   display: block;
   font-size: 0;
@@ -204,7 +204,7 @@ scrollbar-thumb:hover {
   text-align: left;
 }
 
-/* line 18, ../sass/style.scss */
+/* line 25, ../sass/style.scss */
 body,
 html {
   background: #fff;
@@ -219,7 +219,7 @@ html {
   color: #272727;
 }
 
-/* line 33, ../sass/style.scss */
+/* line 39, ../sass/style.scss */
 *,
 *:after,
 *:before {

@@ -1,6 +1,13 @@
 $hover:#1f95ef;
-$topHeaderLink:("normal":#a8a8a8,"hover":$hover);
-$bottomHeaderLink:("normal":#1c1c1c,"hover":$hover);
+
+$topHeaderLink:(	"normal":#a8a8a8,
+						"hover":$hover
+					);
+
+$bottomHeaderLink:(
+							"normal":#1c1c1c,
+							"hover":$hover
+						);
 
 @import "base";
 @import "scroll-style";
@@ -29,7 +36,6 @@ html{
 	color:#272727
 }
 
-
 *,
 *:after,
 *:before {
@@ -39,8 +45,6 @@ html{
 	-webkit-box-sizing: border-box;
 	-o-box-sizing: border-box
 }
-
-
 
 //====== MIXINS =======//
 @mixin hHack($height) {
