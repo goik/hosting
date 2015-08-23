@@ -1,9 +1,10 @@
-var gulp 		= require("gulp");
+var gulp 			= require("gulp");
 var concatJS 	= require('gulp-concat');
 var rename 		= require("gulp-rename");
 var minifyCSS 	= require('gulp-mini-css');
+var notify 		= require('gulp-notify');
 
-gulp.task("default", function() {
+gulp.task("defaultJS", function() {
 	return gulp.src([
 				"js/jquery-1.11.3.min.js",
 				"js/jquery.easing.1.3.min.js",
@@ -21,12 +22,18 @@ gulp.task("default", function() {
 			])
 	.pipe(concatJS("all.js"))
 	.pipe(rename("all.min.js"))
-	.pipe(gulp.dest("js/"));
+	.pipe(gulp.dest("app/js/"));
 });
 
-gulp.task("default", function(){
-    gulp.src("css/style.css")
+gulp.task("defaultCSS", function(){
+	gulp.src("css/style.css")
 	.pipe(minifyCSS())
 	.pipe(rename("style.min.css"))
-	.pipe(gulp.dest("css/"));
+	.pipe(gulp.dest("app/css/"))
+	.pipe(notify("DONE!!!"))
+});
+
+gulp.task("watch", function(){
+	gulp.watch("css/*.css",["defaultCSS"])
+	gulp.watch("js/*.js",["defaultJS"])
 });
