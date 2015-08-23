@@ -23,9 +23,7 @@ gulp.task("default", function() {
 	.pipe(rename("all.min.js"))
 	.pipe(gulp.dest("js/"));
 });
- 
 
- 
 gulp.task("default", function(){
     gulp.src("css/style.css")
 	.pipe(minifyCSS())
